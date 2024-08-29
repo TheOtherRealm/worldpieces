@@ -1,0 +1,69 @@
+{
+	"editor.wordWrap": "on",
+	"python.autoComplete.extraPaths": [
+		"~\\micromamba\\envs\\worldpieces",
+		"~\\micromamba\\pkgs"
+	],
+	"python.analysis.extraPaths": [
+		"~\\micromamba\\envs\\worldpieces",
+		"~\\micromamba\\pkgs"
+	],
+	"python.defaultInterpreterPath": "~\\micromamba\\envs\\worldpieces\\python.exe",
+	"python.linting.pycodestyleEnabled": false,
+	"python.linting.enabled": true,
+	"python.analysis.autoImportCompletions": true,
+	"python.linting.pylintArgs": [
+		"--init-hook",
+		"import sys; sys.path.append('~\\micromamba\\envs\\worldpieces')",
+		"--init-hook",
+		"import sys; sys.path.append('~\\micromamba\\pkgs')",
+		"--init-hook",
+		"import sys; sys.path.append('C:\\Programs\\Blender\\stable\\blender-3.5.0\\3.5\\python')"
+	],
+	"python.terminal.activateEnvironment": true,
+	"matlab-formatter.pythonPath": "~\\micromamba\\envs\\worldpieces\\",
+	"matlab-interactive-terminal.pythonPath": "~\\micromamba\\envs\\worldpieces\\",
+	"cmake.configureOnOpen": true,
+	"files.autoSave": "afterDelay",
+	"python.analysis.typeCheckingMode": "basic",
+	"jupyter.widgetScriptSources": [
+		"jsdelivr.com",
+		"unpkg.com"
+	],
+	"python.analysis.diagnosticSeverityOverrides": {
+		"reportUnusedExpression": "none"
+	},
+	"notebook.jupyter.options": {
+		"notebook_memory_limit": 4096
+	},
+	"workbench.localHistory.enabled": true,
+	"workbench.localHistory.maxFileSize": 100000,
+	"python.analysis.enablePytestSupport": false,
+	"python.analysis.packageIndexDepths": [
+		{
+			"name": "numpy",
+			"depth": 3
+		},
+		{
+			"name": "sklearn",
+			"depth": 3,
+		},
+		{
+			"name": "matplotlib",
+			"depth": 3,
+		},
+		{
+			"name": "sympy",
+			"depth": 4,
+			"includeAllSymbols": true
+		},
+		{
+			"name": "scipy",
+			"depth": 4,
+			"includeAllSymbols": true
+		}
+	],
+	"markdown.styles": [
+		"custom.css"
+	]
+}

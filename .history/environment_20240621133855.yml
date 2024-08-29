@@ -1,0 +1,25 @@
+name: otherus
+channels:
+  - conda-forge
+dependencies:
+- python
+- numpy
+- pip
+- numpy
+- scipy
+- matplotlib
+- sympy
+- panel
+- cma
+- mysql
+- qt6-main
+- pyside6
+- django
+- flask
+- flask-cors
+pip:
+  - django-ckeditor
+  - django-tinymce
+  - briefcase
+  - httpx
+  - Flask-CKEditor
