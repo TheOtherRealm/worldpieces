@@ -3,3 +3,7 @@ node_modules
 public/bundle.*
 package-lock.json
 yarn.lock
+.history
+svelte-pouchdb-couchdb-master
+svelte-pouchdb-couchdb-master/public/global.css
+svelte-pouchdb-couchdb-master/src/App.svelte

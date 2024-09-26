@@ -7,7 +7,7 @@
 
   // Set up local PouchDB and continuous replication to remote CouchDB
   let db = new PouchDB('db')
-  const replication = PouchDB.sync('db', 'http://localhost:5984/svelte-todo-db', {
+  const replication = PouchDB.sync('db', 'http://localhost:5984/tasklist', {
     live: true,
     retry: true
   }).on('change', async function (info) {
