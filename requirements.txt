@@ -1,0 +1,9 @@
+briefcase
+cma
+gunicorn
+httpx
+matplotlib
+mysql
+numpy
+scipy
+sympy
