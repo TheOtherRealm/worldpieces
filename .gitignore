@@ -373,19 +373,19 @@ dist
 .tern-port
 
 # ── Ionic / Capacitor ────────────────────────────────────────────────────────
-frontend_ionic/dist/
-frontend_ionic/.cache/
-frontend_ionic/www/
-frontend_ionic/android/
-frontend_ionic/ios/
-frontend_ionic/.ionic/
+frontend/dist/
+frontend/.cache/
+frontend/www/
+frontend/android/
+frontend/ios/
+frontend/.ionic/
 *.apk
 *.ipa
 *.aab
 
 # ── Backend secrets ──────────────────────────────────────────────────────────
 backend/.env
-frontend_ionic/.env
+frontend/.env
 
 # ── Custom for this project
 nbproject/private/

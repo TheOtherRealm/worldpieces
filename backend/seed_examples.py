@@ -19,11 +19,9 @@ r = redis.Redis(
     port=6379,
     decode_responses=True,
 )
-
 NOW = datetime.now(timezone.utc).isoformat()
 SEED_AUTHOR_ID = "seed_author"
 SEED_AUTHOR_NAME = "World Pieces Team"
-
 EXAMPLES = [
     # ── 1. Quantum Physics ────────────────────────────────────────────────────
     {

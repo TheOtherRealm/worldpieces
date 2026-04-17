@@ -31,7 +31,6 @@ async def _get_sponsor_url(github_login: str) -> str | None:
     """Return the GitHub Sponsors URL for a given login, or None if not sponsorable."""
     if not settings.github_sponsors_token:
         return f"https://github.com/sponsors/{github_login}"
-
     query = """
     query($login: String!) {
       user(login: $login) {
@@ -61,15 +60,11 @@ async def _get_sponsor_url(github_login: str) -> str | None:
     except Exception:
         pass
     return f"https://github.com/sponsors/{github_login}"
-
-
 async def _get_bounty_or_404(bounty_id: str) -> dict:
     bounty = await json_get(f"bounty:{bounty_id}")
     if not bounty:
         raise HTTPException(status_code=404, detail="Bounty not found")
     return bounty
-
-
 def _make_discipline_label(discipline: str | None) -> str | None:
     if not discipline:
         return None

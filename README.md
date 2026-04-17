@@ -1,25 +1,5 @@
 # World Pieces
-
-A cross-platform learning platform for modern engineering techniques grounded in statistics and quantum physics. Users can browse, run, and contribute real-world code examples across five scientific disciplines, post monetary bounties via GitHub Sponsors, and build public profiles tracking their solved problems and contributions.
-
-> **Note:** This repository previously hosted *Other Us*, a social networking app. The `other-us-legacy` branch preserves that codebase. The original NiceGUI version is still live at [https://otherus.otherrealm.org](https://otherus.otherrealm.org).
-
----
-
-## Disciplines
-
-| Discipline | Description |
-|---|---|
-| **Quantum Physics** | Wave functions, operators, quantum statistics, QHO, quantum gates |
-| **Biomechanical Engineering** | Inverse dynamics, gait analysis, musculoskeletal models |
-| **Neuroscience** | Neural dynamics, Hodgkin-Huxley, connectomics, spike sorting |
-| **Material Science** | Pair distribution functions, MD simulation, crystallography |
-| **Biophysics** | Protein folding, membrane biophysics, single-molecule mechanics |
-
----
-
 ## Architecture
-
 ```
 world-pieces/
 ├── backend/                  Python FastAPI + RedisJSON
@@ -44,7 +24,7 @@ world-pieces/
 │   ├── requirements.txt      Pinned Python dependencies
 │   └── .env.example          Environment variable template
 │
-└── frontend_ionic/           Ionic React 8 + Capacitor 7
+└── frontend/           Ionic React 8 + Capacitor 7
     ├── src/
     │   ├── pages/
     │   │   ├── HomePage.tsx
@@ -73,25 +53,23 @@ world-pieces/
 ```
 
 ---
-
 ## Prerequisites
 
-- Python 3.11+
+- Python 3.12+
 - Node.js 22 LTS
-- Redis Stack (with RedisJSON module) running at `10.0.0.90:6379`
-- A GitHub OAuth App
+- Redis Stack (with RedisJSON module) running at `where_ever_your_redis_server_is:6379`
+- GitHub OAuth Configuration
 
 ---
-
 ## Backend Setup
-
 ### 1. Create virtual environment and install dependencies
 
 ```bash
-cd backend
-python3 -m venv .venv
-source .venv/bin/activate
+micromamba create -f environment.yml
+micromamba activate worldpieces
 pip install -r requirements.txt
+cd backend
+
 ```
 
 ### 2. Configure environment
@@ -109,53 +87,21 @@ Required values:
 | `GITHUB_CLIENT_ID` | From your GitHub OAuth App |
 | `GITHUB_CLIENT_SECRET` | From your GitHub OAuth App |
 | `JWT_SECRET_KEY` | Random 64-char hex (see below) |
-| `GITHUB_SPONSORS_TOKEN` | GitHub PAT with `read:user` scope |
+| `GITHUB_SPONSORS_TOKEN` | # Personal Access Token with read:org and read:user scopes Create at: https://github.com/settings/tokens |
 
 Generate a JWT secret:
 ```bash
-python3 -c "import secrets; print(secrets.token_hex(32))"
+python -c "import secrets; print(secrets.token_hex(32))"
 ```
-
 ### 3. Seed starter examples
-
 ```bash
 python seed_examples.py
 ```
-
 ### 4. Run the development server
-
 ```bash
-uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+uvicorn app.main:app --host 0.0.0.0 --port 8765 --reload
 ```
-
-API docs: [http://localhost:8000/docs](http://localhost:8000/docs)
-
-### 5. Production (systemd)
-
-Create `/etc/systemd/system/worldpieces-backend.service`:
-
-```ini
-[Unit]
-Description=World Pieces FastAPI Backend
-After=network.target
-
-[Service]
-Type=simple
-User=www-data
-WorkingDirectory=/opt/world-pieces/backend
-EnvironmentFile=/opt/world-pieces/backend/.env
-ExecStart=/opt/world-pieces/backend/.venv/bin/uvicorn app.main:app --host 127.0.0.1 --port 8000 --workers 4
-Restart=always
-RestartSec=5
-
-[Install]
-WantedBy=multi-user.target
-```
-
-```bash
-sudo systemctl daemon-reload
-sudo systemctl enable --now worldpieces-backend
-```
+API docs: [http://localhost:8765/docs](http://localhost:8765/docs)
 
 ---
 
@@ -164,7 +110,7 @@ sudo systemctl enable --now worldpieces-backend
 ### 1. Install dependencies
 
 ```bash
-cd frontend_ionic
+cd frontend
 npm install
 ```
 
@@ -185,7 +131,7 @@ ionic serve
 
 ```bash
 ionic build --prod
-# Output in: frontend_ionic/dist/
+# Output in: frontend/dist/
 ```
 
 ### 5. Android build
@@ -207,50 +153,6 @@ npx cap open ios          # opens Xcode
 ```
 
 ---
-
-## GitHub OAuth App Setup
-
-1. Go to [https://github.com/settings/developers](https://github.com/settings/developers) → **OAuth Apps** → **New OAuth App**
-2. Set:
-   - **Homepage URL**: `https://your-domain.com`
-   - **Authorization callback URL**: `https://your-domain.com/auth/callback`
-3. Copy **Client ID** and **Client Secret** into `backend/.env`
-
----
-
-## Nginx Reverse Proxy
-
-```nginx
-server {
-    listen 443 ssl http2;
-    server_name your-domain.com;
-
-    ssl_certificate     /etc/letsencrypt/live/your-domain.com/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/your-domain.com/privkey.pem;
-
-    # Serve Ionic frontend
-    root /opt/world-pieces/frontend_ionic/dist;
-    index index.html;
-    location / {
-        try_files $uri $uri/ /index.html;
-    }
-
-    # Proxy FastAPI backend
-    location /api/ {
-        proxy_pass         http://127.0.0.1:8000/;
-        proxy_set_header   Host              $host;
-        proxy_set_header   X-Real-IP         $remote_addr;
-        proxy_set_header   X-Forwarded-For   $proxy_add_x_forwarded_for;
-        proxy_set_header   X-Forwarded-Proto $scheme;
-    }
-}
-
-server {
-    listen 80;
-    server_name your-domain.com;
-    return 301 https://$host$request_uri;
-}
-```
 
 ---
 
