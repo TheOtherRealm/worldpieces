@@ -1,0 +1,92 @@
+/* For information on how to create your own theme, please refer to:
+http://ionicframework.com/docs/theming/ */
+
+/* World Pieces — Global Design System */
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400&family=Merriweather+Sans:wght@300;400;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap');
+
+:root {
+  --wp-deep-navy:    #0d1b2a;
+  --wp-navy:         #1b2d45;
+  --wp-slate:        #2c4a6e;
+  --wp-teal:         #1a7a8a;
+  --wp-teal-light:   #22a0b4;
+  --wp-gold:         #c9a84c;
+  --wp-gold-light:   #e8c96d;
+  --wp-cream:        #f8f4ed;
+  --wp-cream-dark:   #ede8df;
+  --wp-text-primary: #1a1a2e;
+  --wp-text-muted:   #5a6a7a;
+  --wp-border:       #d4cfc6;
+  --wp-quantum:      #6b3fa0;
+  --wp-biomech:      #1a7a4a;
+  --wp-neuro:        #c04a2a;
+  --wp-material:     #2a5a9a;
+  --wp-biophysics:   #7a4a1a;
+
+  --ion-font-family: 'Merriweather', Georgia, 'Times New Roman', serif;
+  --ion-background-color: var(--wp-cream);
+  --ion-text-color: var(--wp-text-primary);
+  --ion-color-primary: var(--wp-teal);
+  --ion-color-primary-rgb: 26, 122, 138;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-contrast-rgb: 255, 255, 255;
+  --ion-color-primary-shade: #166b79;
+  --ion-color-primary-tint: #31afc5;
+  --ion-color-secondary: var(--wp-gold);
+  --ion-color-secondary-rgb: 201, 168, 76;
+  --ion-color-secondary-contrast: #1a1a2e;
+  --ion-color-secondary-shade: #b09542;
+  --ion-color-secondary-tint: #d4b45e;
+  --ion-color-dark: var(--wp-deep-navy);
+  --ion-color-medium: var(--wp-text-muted);
+  --ion-color-light: var(--wp-cream);
+  --ion-toolbar-background: var(--wp-navy);
+  --ion-toolbar-color: var(--wp-cream);
+  --ion-tab-bar-background: var(--wp-deep-navy);
+  --ion-tab-bar-color: var(--wp-text-muted);
+  --ion-tab-bar-color-selected: var(--wp-teal-light);
+  --ion-card-background: #ffffff;
+  --ion-item-background: #ffffff;
+}
+
+* { box-sizing: border-box; }
+body { font-family: var(--ion-font-family); background-color: var(--wp-cream); color: var(--wp-text-primary); line-height: 1.7; }
+h1,h2,h3,h4,h5,h6 { font-family: 'Merriweather', Georgia, serif; font-weight: 700; color: var(--wp-deep-navy); line-height: 1.3; }
+h1 { font-size: 2rem; } h2 { font-size: 1.6rem; } h3 { font-size: 1.3rem; }
+p { font-family: 'Merriweather', Georgia, serif; font-size: 1rem; line-height: 1.8; color: var(--wp-text-primary); }
+.sans { font-family: 'Merriweather Sans', sans-serif; }
+
+ion-toolbar { --background: var(--wp-navy); --color: var(--wp-cream); }
+ion-title { font-family: 'Merriweather', Georgia, serif; font-size: 1.1rem; font-weight: 700; color: var(--wp-cream); }
+ion-tab-bar { --background: var(--wp-deep-navy); border-top: 1px solid var(--wp-slate); }
+ion-tab-button { --color: var(--wp-text-muted); --color-selected: var(--wp-teal-light); font-family: 'Merriweather Sans', sans-serif; font-size: 0.7rem; }
+ion-card { border-radius: 8px; box-shadow: 0 2px 12px rgba(13,27,42,0.08); border: 1px solid var(--wp-border); }
+ion-card-title { font-family: 'Merriweather', Georgia, serif; font-weight: 700; color: var(--wp-deep-navy); }
+ion-card-subtitle { font-family: 'Merriweather Sans', sans-serif; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--wp-text-muted); }
+ion-button { font-family: 'Merriweather Sans', sans-serif; font-weight: 600; --border-radius: 6px; }
+ion-searchbar { --background: #ffffff; --border-radius: 8px; font-family: 'Merriweather Sans', sans-serif; }
+ion-chip { font-family: 'Merriweather Sans', sans-serif; font-size: 0.75rem; }
+ion-label { font-family: 'Merriweather', Georgia, serif; }
+ion-item { --background: #ffffff; --border-color: var(--wp-border); }
+
+.wp-section-title { font-family: 'Merriweather', Georgia, serif; font-size: 1.4rem; font-weight: 700; color: var(--wp-deep-navy); border-bottom: 2px solid var(--wp-teal); padding-bottom: 0.4rem; margin-bottom: 1rem; }
+.wp-badge { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 4px; font-family: 'Merriweather Sans', sans-serif; font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; }
+.wp-badge-quantum    { background: #f0e8ff; color: var(--wp-quantum); }
+.wp-badge-biomech    { background: #e8f5ee; color: var(--wp-biomech); }
+.wp-badge-neuro      { background: #fdf0ec; color: var(--wp-neuro); }
+.wp-badge-material   { background: #e8f0fa; color: var(--wp-material); }
+.wp-badge-biophysics { background: #f5ece0; color: var(--wp-biophysics); }
+.wp-badge-beginner     { background: #e8f5ee; color: #1a7a4a; }
+.wp-badge-intermediate { background: #fff8e8; color: #8a6a00; }
+.wp-badge-advanced     { background: #fdf0ec; color: #c04a2a; }
+
+.wp-hero { background: linear-gradient(135deg, var(--wp-deep-navy) 0%, var(--wp-slate) 100%); color: var(--wp-cream); padding: 2.5rem 1.5rem; text-align: center; }
+.wp-hero h1 { color: var(--wp-cream); font-size: 2.2rem; margin-bottom: 0.5rem; }
+.wp-hero p { color: rgba(248,244,237,0.8); font-size: 1rem; max-width: 600px; margin: 0 auto; }
+.wp-discipline-card { cursor: pointer; transition: transform 0.15s ease, box-shadow 0.15s ease; }
+.wp-discipline-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(13,27,42,0.14); }
+.wp-code-block { border-radius: 8px; overflow: hidden; border: 1px solid var(--wp-border); margin: 1rem 0; }
+.wp-code-header { background: var(--wp-navy); color: var(--wp-cream); padding: 0.5rem 1rem; font-family: 'Merriweather Sans', sans-serif; font-size: 0.8rem; display: flex; justify-content: space-between; align-items: center; }
+.wp-code-header span { font-family: 'Source Code Pro', monospace; color: var(--wp-teal-light); }
+.wp-code-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.75rem; }
+pre, code { font-family: 'Source Code Pro', 'Courier New', monospace !important; }
