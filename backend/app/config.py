@@ -19,7 +19,7 @@ class Settings(BaseSettings):
     github_client_id: str = os.getenv("GITHUB_CLIENT_ID", "")
     github_client_secret: str = os.getenv("GITHUB_CLIENT_SECRET", "")
     github_redirect_uri: str = os.getenv(
-        "GITHUB_REDIRECT_URI", "http://localhost:8081/auth/github/callback"
+        "GITHUB_REDIRECT_URI", "http://localhost:8765/auth/github/callback"
     )
     # GitHub Sponsors GraphQL
     github_sponsors_token: str = os.getenv("GITHUB_SPONSORS_TOKEN", "")

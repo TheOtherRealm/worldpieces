@@ -84,10 +84,10 @@ async def list_examples(
                 updated_at=ex["updated_at"],
             )
         )
-
+    print('\n',offset,'\n----\n',limit,'\n')
     # Sort by created_at descending
     results.sort(key=lambda x: x.created_at, reverse=True)
-    return results[offset : offset + limit]
+    return results[offset : offset+limit]
 
 
 # ── Get by discipline ─────────────────────────────────────────────────────────
