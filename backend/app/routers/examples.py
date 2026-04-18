@@ -123,8 +123,9 @@ async def list_by_discipline(discipline: str):
 async def get_example(example_id: str):
     """Retrieve a single example by ID."""
     ex = await _get_example_or_404(example_id)
+    data = {k: v for k, v in ex.items() if k != "discipline_label"}
     return ExamplePublic(
-        **ex,
+        **data,
         discipline_label=_make_discipline_label(ex["discipline"]),
     )
 
@@ -181,8 +182,9 @@ async def create_example(
         profile["contributed_example_ids"] = contributed
         await json_set(f"profile:{current_user['id']}", ".", profile)
 
+    data = {k: v for k, v in example.items() if k != "discipline_label"}
     return ExamplePublic(
-        **example,
+        **data,
         discipline_label=_make_discipline_label(example["discipline"]),
     )
 
@@ -217,8 +219,9 @@ async def update_example(
     example["updated_at"] = now
 
     await json_set(f"example:{example_id}", ".", example)
+    data = {k: v for k, v in example.items() if k != "discipline_label"}
     return ExamplePublic(
-        **example,
+        **data,
         discipline_label=_make_discipline_label(example["discipline"]),
     )
 
