@@ -44,9 +44,16 @@ async def json_get(key: str, path: str = ".") -> Optional[Any]:
     raw = await r.execute_command("JSON.GET", key, path)
     if raw is None:
         return None
+    # RedisJSON may return a pre-parsed dict/list (some driver versions)
+    # or a JSON string — handle both cases gracefully.
     if isinstance(raw, (dict, list)):
         return raw
-    return json.loads(raw)
+    if isinstance(raw, (bytes, str)):
+        try:
+            return json.loads(raw)
+        except (json.JSONDecodeError, ValueError):
+            return None
+    return None
 
 
 async def json_del(key: str, path: str = ".") -> int:

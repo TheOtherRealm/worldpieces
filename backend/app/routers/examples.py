@@ -35,18 +35,17 @@ async def _get_example_or_404(example_id: str) -> dict:
     return example
 
 
-# ── List examples ─────────────────────────────────────────────────────────────
+# ── Internal helper (plain Python types — no FastAPI Query objects) ───────────
 
-@router.get("/", response_model=list[ExampleListItem])
-async def list_examples(
-    discipline: Optional[str] = Query(None),
-    tag: Optional[str] = Query(None),
-    difficulty: Optional[str] = Query(None),
-    search: Optional[str] = Query(None),
-    limit: int = Query(50, le=200),
-    offset: int = Query(0, ge=0),
-):
-    """List all examples with optional filtering."""
+async def _fetch_examples(
+    discipline: Optional[str] = None,
+    tag: Optional[str] = None,
+    difficulty: Optional[str] = None,
+    search: Optional[str] = None,
+    limit: int = 50,
+    offset: int = 0,
+) -> list[ExampleListItem]:
+    """Core filtering logic shared by the list endpoint and discipline endpoint."""
     keys = await keys_matching("example:*")
     results = []
     for key in keys:
@@ -85,9 +84,30 @@ async def list_examples(
             )
         )
 
-    # Sort by created_at descending
     results.sort(key=lambda x: x.created_at, reverse=True)
     return results[offset : offset + limit]
+
+
+# ── List examples ─────────────────────────────────────────────────────────────
+
+@router.get("/", response_model=list[ExampleListItem])
+async def list_examples(
+    discipline: Optional[str] = Query(None),
+    tag: Optional[str] = Query(None),
+    difficulty: Optional[str] = Query(None),
+    search: Optional[str] = Query(None),
+    limit: int = Query(50, le=200),
+    offset: int = Query(0, ge=0),
+):
+    """List all examples with optional filtering."""
+    return await _fetch_examples(
+        discipline=discipline,
+        tag=tag,
+        difficulty=difficulty,
+        search=search,
+        limit=limit,
+        offset=offset,
+    )
 
 
 # ── Get by discipline ─────────────────────────────────────────────────────────
@@ -95,7 +115,7 @@ async def list_examples(
 @router.get("/discipline/{discipline}", response_model=list[ExampleListItem])
 async def list_by_discipline(discipline: str):
     """Return all examples for a specific discipline."""
-    return await list_examples(discipline=discipline)
+    return await _fetch_examples(discipline=discipline)
 
 
 # ── Get single example ────────────────────────────────────────────────────────
