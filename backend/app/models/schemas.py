@@ -3,9 +3,7 @@ from __future__ import annotations
 from typing import Any, Optional, Literal
 from pydantic import BaseModel, Field
 from datetime import datetime
-
 # ── Disciplines ───────────────────────────────────────────────────────────────
-
 DISCIPLINES = Literal[
     "quantum_physics",
     "biomechanical_engineering",
@@ -13,7 +11,6 @@ DISCIPLINES = Literal[
     "material_science",
     "biophysics",
 ]
-
 DISCIPLINE_LABELS: dict[str, str] = {
     "quantum_physics": "Quantum Physics",
     "biomechanical_engineering": "Biomechanical Engineering",
@@ -21,9 +18,7 @@ DISCIPLINE_LABELS: dict[str, str] = {
     "material_science": "Material Science",
     "biophysics": "Biophysics",
 }
-
 # ── User ──────────────────────────────────────────────────────────────────────
-
 class UserPublic(BaseModel):
     id: str
     email: str
@@ -33,23 +28,16 @@ class UserPublic(BaseModel):
     provider: str
     created_at: str
     is_admin: bool = False
-
-
 class UserFull(UserPublic):
     profile: Optional[dict] = None
     github_access_token: Optional[str] = None  # never returned to frontend
-
-
 # ── Profile ───────────────────────────────────────────────────────────────────
-
 class ProfileUpdate(BaseModel):
     bio: Optional[str] = Field(None, max_length=1000)
     working_on: Optional[str] = Field(None, max_length=500)
     website: Optional[str] = None
     location: Optional[str] = None
     skills: Optional[list[str]] = None
-
-
 class ProfilePublic(BaseModel):
     user_id: str
     user_name: str
@@ -63,10 +51,7 @@ class ProfilePublic(BaseModel):
     solved_example_ids: list[str] = []
     contributed_example_ids: list[str] = []
     updated_at: str
-
-
 # ── Examples (content pages) ──────────────────────────────────────────────────
-
 class ExampleCreate(BaseModel):
     title: str = Field(..., min_length=3, max_length=200)
     discipline: DISCIPLINES
@@ -76,8 +61,6 @@ class ExampleCreate(BaseModel):
     tags: list[str] = []
     difficulty: Literal["beginner", "intermediate", "advanced"] = "intermediate"
     colab_url: Optional[str] = None  # pre-generated Colab link if provided
-
-
 class ExampleUpdate(BaseModel):
     title: Optional[str] = Field(None, min_length=3, max_length=200)
     problem_summary: Optional[str] = None
@@ -86,8 +69,6 @@ class ExampleUpdate(BaseModel):
     tags: Optional[list[str]] = None
     difficulty: Optional[Literal["beginner", "intermediate", "advanced"]] = None
     colab_url: Optional[str] = None
-
-
 class ExamplePublic(BaseModel):
     id: str
     title: str
@@ -106,8 +87,6 @@ class ExamplePublic(BaseModel):
     created_at: str
     updated_at: str
     edit_history: list[dict] = []
-
-
 class ExampleListItem(BaseModel):
     id: str
     title: str
@@ -119,10 +98,7 @@ class ExampleListItem(BaseModel):
     author_name: str
     created_at: str
     updated_at: str
-
-
 # ── Bounties ──────────────────────────────────────────────────────────────────
-
 class BountyCreate(BaseModel):
     title: str = Field(..., min_length=5, max_length=200)
     description: str = Field(..., min_length=10)
@@ -130,15 +106,11 @@ class BountyCreate(BaseModel):
     example_id: Optional[str] = None  # link to existing example if applicable
     amount_usd: float = Field(..., gt=0, le=10000)
     github_sponsor_username: str = Field(..., description="GitHub username to sponsor")
-
-
 class BountyUpdate(BaseModel):
     title: Optional[str] = None
     description: Optional[str] = None
     status: Optional[Literal["open", "claimed", "completed", "cancelled"]] = None
     claimed_by_user_id: Optional[str] = None
-
-
 class BountyPublic(BaseModel):
     id: str
     title: str
@@ -157,18 +129,12 @@ class BountyPublic(BaseModel):
     sponsor_url: Optional[str] = None
     created_at: str
     updated_at: str
-
-
 # ── Auth ──────────────────────────────────────────────────────────────────────
-
 class TokenResponse(BaseModel):
     access_token: str
     token_type: str = "bearer"
     user: UserPublic
-
-
 # ── Search ────────────────────────────────────────────────────────────────────
-
 class ProfileSearchResult(BaseModel):
     user_id: str
     user_name: str

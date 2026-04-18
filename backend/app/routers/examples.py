@@ -21,12 +21,9 @@ from slugify import slugify
 
 router = APIRouter(prefix="/examples", tags=["examples"])
 
-
 # ── Helpers ───────────────────────────────────────────────────────────────────
-
 def _make_discipline_label(discipline: str) -> str:
     return DISCIPLINE_LABELS.get(discipline, discipline.replace("_", " ").title())
-
 
 async def _get_example_or_404(example_id: str) -> dict:
     example = await json_get(f"example:{example_id}")
@@ -34,9 +31,7 @@ async def _get_example_or_404(example_id: str) -> dict:
         raise HTTPException(status_code=404, detail="Example not found")
     return example
 
-
 # ── Internal helper (plain Python types — no FastAPI Query objects) ───────────
-
 async def _fetch_examples(
     discipline: Optional[str] = None,
     tag: Optional[str] = None,
@@ -83,6 +78,7 @@ async def _fetch_examples(
                 updated_at=ex["updated_at"],
             )
         )
+    print('\n',offset,'\n----\n',limit,'\n')
     results.sort(key=lambda x: x.created_at, reverse=True)
     return results[offset : offset+limit]
 
